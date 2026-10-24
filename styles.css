@@ -1,0 +1,422 @@
+body { margin: 0; overflow: hidden; background-color: #000; font-family: sans-serif; color: white}
+        #loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-size: 20px; pointer-events: none; }
+		#controls {
+			position: absolute;
+			top: 20px;
+			left: 20px;
+			z-index: 10;
+			max-width: calc(100vw - 40px);
+			padding: 8px 12px;
+		}
+		
+		#starInfo {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			width: 260px;
+			max-width: calc(100vw - 40px);
+			padding: 16px;
+			background: rgba(15, 15, 25, 0.95);
+			color: white;
+			border: 1px solid #555;
+			border-radius: 8px;
+			font-family: sans-serif;
+			z-index: 10;
+		}
+
+		#starInfo.hidden {
+			display: none;
+		}
+
+		#starInfo h3 {
+			margin-top: 0;
+		}
+
+		#starDetails p {
+			margin: 6px 0;
+		}
+
+		#closeInfo {
+			float: right;
+			background: none;
+			border: none;
+			color: white;
+			font-size: 22px;
+			cursor: pointer;
+		}
+
+		#utilityButtons {
+			position: fixed;
+			right: 20px;
+			bottom: 20px;
+			z-index: 10;
+			display: flex;
+			gap: 8px;
+			opacity: 0.4;
+			transition: opacity 200ms ease;
+		}
+
+		#utilityButtons button {
+			display: grid;
+			width: 40px;
+			height: 40px;
+			place-items: center;
+			padding: 0;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			border-radius: 50%;
+			background: rgba(15, 15, 25, 0.88);
+			color: white;
+			cursor: pointer;
+			backdrop-filter: blur(10px);
+		}
+
+		#utilityButtons button:hover {
+			background: rgba(255, 255, 255, 0.2);
+		}
+
+		#utilityButtons:hover {
+			opacity: 1;
+		}
+
+		#utilityButtons button:focus-visible,
+		.dialogClose:focus-visible {
+			outline: 2px solid #8ab4ff;
+			outline-offset: 3px;
+		}
+
+		#utilityButtons svg {
+			width: 20px;
+			height: 20px;
+			fill: none;
+			stroke: currentColor;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-width: 1.8;
+		}
+
+		.descriptionDialog {
+			position: fixed;
+			width: min(560px, calc(100vw - 40px));
+			max-height: calc(100vh - 40px);
+			box-sizing: border-box;
+			margin: auto;
+			padding: 28px;
+			overflow-y: auto;
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			border-radius: 12px;
+			background: rgba(15, 15, 25, 0.96);
+			box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+			color: white;
+			backdrop-filter: blur(10px);
+		}
+
+		.descriptionDialog::backdrop {
+			background: rgba(0, 0, 0, 0.65);
+			backdrop-filter: blur(3px);
+		}
+
+		.descriptionDialog h2 {
+			margin: 0 40px 20px 0;
+			font-size: 22px;
+		}
+
+		.descriptionDialog p,
+		.descriptionDialog ul {
+			margin-bottom: 0;
+			color: rgba(255, 255, 255, 0.82);
+			font-size: 15px;
+			line-height: 1.7;
+		}
+
+		.descriptionDialog ul {
+			display: grid;
+			gap: 10px;
+			padding-left: 22px;
+		}
+
+		.descriptionDialog strong {
+			color: white;
+		}
+
+		.descriptionDialog form {
+			position: absolute;
+			top: 16px;
+			right: 16px;
+		}
+
+		.dialogClose {
+			width: 32px;
+			height: 32px;
+			padding: 0;
+			border: 0;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			font-size: 24px;
+			line-height: 1;
+			cursor: pointer;
+		}
+
+		#scaleBar {
+			position: fixed;
+			left: 20px;
+			bottom: 20px;
+			z-index: 10;
+			color: white;
+			font-size: 12px;
+			font-variant-numeric: tabular-nums;
+			pointer-events: none;
+			text-shadow: 0 1px 4px black, 0 0 8px black;
+		}
+
+		#lightYearScaleLabel,
+		#parsecScaleLabel {
+			width: 104px;
+			white-space: nowrap;
+			text-align: center;
+		}
+
+		#lightYearScaleLabel {
+			margin-bottom: 4px;
+		}
+
+		.scaleBarLine {
+			position: relative;
+			width: 100px;
+			height: 6px;
+			border-right: 2px solid white;
+			border-left: 2px solid white;
+			box-sizing: content-box;
+		}
+
+		.scaleBarLine::after {
+			position: absolute;
+			top: 2px;
+			right: 0;
+			left: 0;
+			border-top: 2px solid white;
+			content: "";
+		}
+
+		#parsecScaleLabel {
+			margin-top: 4px;
+		}
+
+		#simulationControls {
+			position: fixed;
+			left: 50%;
+			bottom: 20px;
+			transform: translateX(-50%);
+			z-index: 10;
+			display: flex;
+			align-items: center;
+			gap: 18px;
+			max-width: calc(100vw - 32px);
+			padding: 10px 16px;
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			border-radius: 12px;
+			background: rgba(15, 15, 25, 0.88);
+			backdrop-filter: blur(10px);
+			box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+			opacity: 0.4;
+			transition: opacity 200ms ease;
+		}
+
+		#controls {
+			border: 1px solid rgba(255, 255, 255, 0.16);
+			border-radius: 12px;
+			background: rgba(15, 15, 25, 0.88);
+			backdrop-filter: blur(10px);
+			box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+			font-size: 13px;
+			opacity: 0.4;
+			transition: opacity 200ms ease;
+		}
+
+		#controls[open] {
+			padding: 10px 16px;
+		}
+
+		#controls summary {
+			cursor: pointer;
+			font-size: 13px;
+			list-style: none;
+			white-space: nowrap;
+		}
+
+		#controls summary::-webkit-details-marker {
+			display: none;
+		}
+
+		#controls summary::after {
+			content: " \25B8";
+			color: rgba(255, 255, 255, 0.75);
+		}
+
+		#controls[open] summary {
+			margin-bottom: 12px;
+		}
+
+		#controls[open] summary::after {
+			content: " \25BE";
+		}
+
+		#controls summary:focus-visible {
+			outline: 2px solid #8ab4ff;
+			outline-offset: 3px;
+		}
+
+		.filterControlsContent {
+			display: flex;
+			flex-direction: column;
+			gap: 12px;
+		}
+
+		#controls:hover {
+			opacity: 1.0;
+		}
+
+		#simulationControls:hover {
+			opacity: 1.0;
+		}
+
+		.transportButtons {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.transportButtons button {
+			display: grid;
+			width: 38px;
+			height: 38px;
+			place-items: center;
+			padding: 0;
+			border: 0;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.1);
+			color: white;
+			cursor: pointer;
+		}
+
+		.transportButtons button:hover {
+			background: rgba(255, 255, 255, 0.2);
+		}
+
+		.transportButtons button:focus-visible,
+		#simulationSpeed:focus-visible,
+		#magnitudeSlider:focus-visible,
+		#sizeSlider:focus-visible {
+			outline: 2px solid #8ab4ff;
+			outline-offset: 3px;
+		}
+
+		.transportButtons svg {
+			width: 20px;
+			height: 20px;
+			fill: currentColor;
+		}
+
+		#simulationButton[data-running="false"] .pauseIcon,
+		#simulationButton[data-running="true"] .playIcon {
+			display: none;
+		}
+
+		.speedControl {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 13px;
+			white-space: nowrap;
+		}
+
+		#simulationSpeed,
+		#magnitudeSlider,
+		#sizeSlider {
+			width: 130px;
+			accent-color: #8ab4ff;
+		}
+
+		.filterControl {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			align-items: center;
+			gap: 4px 8px;
+			white-space: nowrap;
+		}
+
+		.filterControl input {
+			grid-column: 1 / -1;
+		}
+
+		.filterValue {
+			min-width: 32px;
+			color: rgba(255, 255, 255, 0.75);
+			font-variant-numeric: tabular-nums;
+			text-align: right;
+		}
+
+		.speedValue {
+			min-width: 92px;
+			color: rgba(255, 255, 255, 0.75);
+			text-align: right;
+		}
+
+		.elapsedTime {
+			min-width: 90px;
+			padding-left: 16px;
+			border-left: 1px solid rgba(255, 255, 255, 0.2);
+			font-variant-numeric: tabular-nums;
+			text-align: right;
+			white-space: nowrap;
+		}
+
+		@media (max-width: 560px) {
+			#controls {
+				top: 12px;
+				left: 12px;
+				padding: 8px 10px;
+			}
+
+			#utilityButtons {
+				right: 12px;
+				bottom: 82px;
+			}
+
+			.descriptionDialog {
+				padding: 24px 20px;
+			}
+
+			#controls[open] {
+				padding: 8px 10px;
+			}
+
+			#controls[open] summary {
+				margin-bottom: 10px;
+			}
+
+			#simulationControls {
+				bottom: 12px;
+				gap: 12px;
+				padding: 8px 10px;
+			}
+
+			.speedControl {
+				gap: 6px;
+			}
+
+			#simulationSpeed,
+			#magnitudeSlider,
+			#sizeSlider {
+				width: 80px;
+			}
+
+			.speedValue {
+				display: none;
+			}
+
+			.elapsedTime {
+				min-width: auto;
+				padding-left: 10px;
+			}
+		}

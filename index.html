@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Star Visualization</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="loading">Loading Star Dataset...</div>
+	
+	<details id="controls" aria-label="Star display controls">
+		<summary>Controls</summary>
+		<div class="filterControlsContent">
+			<label class="filterControl">
+				<span>Star brightness limit<br/>(absolute magnitude)</span>
+				<span class="filterValue" id="magnitudeValue">10.0</span>
+				<input
+					type="range"
+					id="magnitudeSlider"
+					min="-1"
+					max="20"
+					step="0.1"
+					value="10.0"
+				>
+			</label>
+
+			<label class="filterControl">
+				<span>Star disk size</span>
+				<span class="filterValue" id="sizeValue">1.5</span>
+				<input
+					type="range"
+					id="sizeSlider"
+					min="0.2"
+					max="5.0"
+					step="0.1"
+					value="1.5"
+				>
+			</label>
+		</div>
+	</details>
+
+	<div id="scaleBar" role="img" aria-label="Scale">
+		<div id="lightYearScaleLabel"></div>
+		<div class="scaleBarLine" aria-hidden="true"></div>
+		<div id="parsecScaleLabel"></div>
+	</div>
+	
+	<div id="simulationControls" aria-label="Simulation controls">
+		<div class="transportButtons">
+			<button
+				id="simulationButton"
+				type="button"
+				data-running="false"
+				title="Start simulation"
+				aria-label="Start simulation"
+			>
+				<svg class="playIcon" viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M8 5v14l11-7z"></path>
+				</svg>
+				<svg class="pauseIcon" viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M7 5h4v14H7zm6 0h4v14h-4z"></path>
+				</svg>
+			</button>
+			<button
+				id="resetButton"
+				type="button"
+				title="Reset simulation"
+				aria-label="Reset simulation"
+			>
+				<svg viewBox="0 0 24 24" aria-hidden="true">
+					<path d="M12 5V1L6 7l6 6V8a7 7 0 1 1-6.32 4H3.52A9 9 0 1 0 12 5z"></path>
+				</svg>
+			</button>
+		</div>
+
+		<label class="speedControl">
+			<span>Speed</span>
+			<input
+				type="range"
+				id="simulationSpeed"
+				min="1000"
+				max="100000"
+				value="20000"
+				step="1000"
+				aria-label="Simulation speed"
+			>
+			<span class="speedValue"><span id="speedValue">1000</span> years/sec</span>
+		</label>
+		<div class="elapsedTime" aria-label="Elapsed simulation time">
+			<span id="elapsedTime">0 years</span>
+		</div>
+	</div>
+	
+	<div id="starInfo" class="hidden">
+		<button id="closeInfo">×</button>
+		<h3 id="starName">Star</h3>
+		<div id="starDetails"></div>
+	</div>
+
+	<div id="utilityButtons" aria-label="Information and help">
+		<button type="button" aria-label="About Nearby Stars" title="About" data-dialog-target="aboutDialog">
+			<svg viewBox="0 0 24 24" aria-hidden="true">
+				<circle cx="12" cy="12" r="9"></circle>
+				<path d="M12 11v5m0-8h.01"></path>
+			</svg>
+		</button>
+		<button type="button" aria-label="Help" title="Help" data-dialog-target="helpDialog">
+			<svg viewBox="0 0 24 24" aria-hidden="true">
+				<circle cx="12" cy="12" r="9"></circle>
+				<path d="M9.6 9a2.5 2.5 0 1 1 4.7 1.2c-.8 1.1-2.3 1.3-2.3 3m0 3h.01"></path>
+			</svg>
+		</button>
+	</div>
+
+	<dialog class="descriptionDialog" id="aboutDialog" aria-labelledby="aboutTitle">
+		<form method="dialog">
+			<button class="dialogClose" type="submit" aria-label="Close">×</button>
+		</form>
+		<h2 id="aboutTitle">About Nearby Stars</h2>
+		<p>
+			This 3D visualization shows 28,800 nearby stars within 100 parsecs
+			(about 326 light-years), using real data from the SIMBAD astronomical
+			database. It also simulates how the stars move over time using real
+			stellar-motion data.
+		</p>
+	</dialog>
+
+	<dialog class="descriptionDialog" id="helpDialog" aria-labelledby="helpTitle">
+		<form method="dialog">
+			<button class="dialogClose" type="submit" aria-label="Close">×</button>
+		</form>
+		<h2 id="helpTitle">Help</h2>
+		<ul>
+			<li><strong>Left mouse drag:</strong> Rotate the scene.</li>
+			<li><strong>Right mouse drag:</strong> Pan the scene.</li>
+			<li><strong>Mouse wheel:</strong> Zoom in or out.</li>
+			<li><strong>Ctrl + click:</strong> View information about a star.</li>
+			<li><strong>Play:</strong> Start the simulation of future star movement.</li>
+			<li><strong>Reset:</strong> Return the simulation to its starting point.</li>
+		</ul>
+	</dialog>
+
+    <script type="module" src="/main.js"></script>
+</body>
+</html>

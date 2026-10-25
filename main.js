@@ -6,6 +6,9 @@
 		import { setupDisplayControls } from './modules/displayControls.js';
 		import { createSimulation } from './modules/simulation.js';
 		import { setupSimulationControls } from './modules/simulationControls.js';
+		import { inject } from '@vercel/analytics';
+
+		inject();
 
 		const sceneView = createSceneView();
 		const { scene, camera, renderer, controls } = sceneView;

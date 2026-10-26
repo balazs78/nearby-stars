@@ -4,6 +4,12 @@
 
 Nearby Stars is an interactive 3D visualization of 28,800 stars within 100 parsecs (about 326 light-years) of the Sun. The visualization uses real astronomical data from the SIMBAD database and can simulate stellar motion over time using real motion data.
 
+## Screenshots
+
+![Overview of the nearby stars visualization](./screenshots/stars1.jpg)
+
+![Close-up of the visualization with star information](./screenshots/stars2.jpg)
+
 ## Features
 
 - Explore the stars in a rotatable, zoomable 3D scene.
